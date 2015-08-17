@@ -1,0 +1,33 @@
+const int ground_pin = 18;             
+const int power_pin = 19;              
+const int x_axis_pin = A3;                  
+const int y_axis_pin = A2;                  
+const int z_axis_pin = A1;                  
+
+void setup()
+{
+  
+  Serial.begin(9600);
+
+  // Remove these lines if you use the normal 5V and
+  // GND pins on the Arduino.
+  pinMode(ground_pin, OUTPUT);
+  pinMode(power_pin, OUTPUT);
+  digitalWrite(ground_pin, LOW);
+  digitalWrite(power_pin, HIGH);
+}
+
+void loop()
+{
+ 
+  Serial.print(analogRead(x_axis_pin));
+  
+  Serial.print("\t");
+  Serial.print(analogRead(y_axis_pin));
+ 
+  Serial.print("\t");
+  Serial.print(analogRead(z_axis_pin));
+  Serial.println();
+  
+  delay(100);
+}
