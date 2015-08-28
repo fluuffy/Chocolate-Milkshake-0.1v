@@ -1,0 +1,35 @@
+int ledPin = 11;                //choose the pin for the LED - needs to be (3,5,6,9,10, or 11)
+int buttonPin = 2;               //choose the input pin for a pushbutton
+int potPin = 0;                  //choose the input pin for a potentometer
+int buttonVal = 0;                    //variable for reading the button status
+int bounceCheck = 0;            //variable for debouncing
+int potVal = 0;                //variable for reading potentiometer value
+int mappedPotVal = 0;          //variable for remapping pot data to 0-255
+
+void setup() {
+  pinMode(ledPin, OUTPUT);      //declare LED as output
+  pinMode(buttonPin, INPUT);     //declare pushbutton as input
+  Serial.begin(9600);            //begin serial communication at 9600 baud
+}
+
+void loop(){
+
+  /*
+  buttonVal = digitalRead(buttonPin);     //read input value from button
+  delay(10);                              //wait 10ms
+  bounceCheck = digitalRead(buttonPin);   //check again
+  if(buttonVal == bounceCheck){           //if val is the same then not a bounce
+    if (buttonVal == HIGH) {              //check if the input is HIGH
+      digitalWrite(ledPin, LOW);         //turn LED OFF
+    } else {
+      digitalWrite(ledPin, HIGH);       //turn LED ON
+    }
+  }
+  */
+
+  potVal = analogRead(potPin);         //read input from potentiometer
+  mappedPotVal = map(potVal, 0, 1023, 0, 255);  //map value to 0-255
+  Serial.println(mappedPotVal);                   //send potVal via serial
+  analogWrite(ledPin, mappedPotVal);        //use PWM to set LED brightness
+
+}
