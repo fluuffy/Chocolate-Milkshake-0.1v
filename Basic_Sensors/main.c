@@ -142,9 +142,9 @@ int main(void)
 	  //motor = (SPD_GetS16Speed(SpeedSensor_) * _RPM / SPEED_UNIT);
 	  //HAL_Delay(10);
 	  iab = MC_GetIqdMotor1();
-	   q_current = MC_GetPhaseCurrentAmplitudeMotor1();
-	   d_current = iab.d;
-	   motor = iab.q;
+	   motor = (MC_GetPhaseCurrentAmplitudeMotor1()*3.3)/(65536*1.53*0.33);
+	   d_current = (iab.d*3.3f)/(65536*1.53f*0.33f);
+	   q_current = (iab.q*3.3f)/(65536*1.53f*0.33f); //(current*Vdd)/(65536*gain*Rshunt)
 
 
 	  //printf("%d/n \n", q_current);
